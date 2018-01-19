@@ -6,6 +6,7 @@ import xbmc, xbmcgui, xbmcaddon, xbmcvfs
 import os, sys, re, json
 
 __addon_id__= 'plugin.video.bdyun'
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.2.0'
 plugin_path = xbmcaddon.Addon(__addon_id__).getAddonInfo('path')
 lib_path = os.path.join(plugin_path, 'resources', 'modules')
 sys.path.append(lib_path)
@@ -285,6 +286,8 @@ def quality(filepath):
     listitem.setInfo(type='Video', infoLabels={'Title': name})
 
     if video_path:
+        if USER_AGENT:
+            video_path += "|" + USER_AGENT
         xbmc.Player().play(video_path, listitem, windowed=False)
 
 
